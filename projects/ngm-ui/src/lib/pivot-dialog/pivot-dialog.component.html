@@ -1,3 +1,90 @@
-<p>
-  pivot-dialog works!
-</p>
+<div mat-dialog-title class="pivot-mat-dialog-title">
+  <strong>Campos y Valores</strong>
+  <span class="pivot-quickselection-title">{{quickSelectionTitle}}</span>
+</div>
+  
+<mat-dialog-content class="pivot-config-container">
+  
+  <div class="pivot-config-areas-container">
+
+        <div class="pivot-config-fields">
+            <div class="pivot-area-title"><strong>Filas</strong></div> 
+
+            <div 
+                cdkDropList [cdkDropListData]="fieldList" class="pivot-field-list" 
+                (cdkDropListDropped)="drop($event, 'F')"
+                [cdkDropListConnectedTo]="_columnList" #_fieldList="cdkDropList"
+                >
+              <div *ngFor="let f of fieldList" class="pivot-area-field" cdkDrag>
+                <mat-checkbox 
+                  #checkbox="matCheckbox" 
+                  [checked]="f.selected"
+                  (change)="changeFieldEvent($event, checkbox, f, 'F')" >{{f.deno}}</mat-checkbox>
+              </div>
+
+            </div>
+
+        </div>
+        
+        <div class="pivot-config-areas-1">
+
+            <div class="pivot-config-columnas">
+              <div class="pivot-area-title"><strong>Columnas</strong></div> 
+              
+              <div 
+                  cdkDropList [cdkDropListData]="columnList" class="pivot-field-list" 
+                  [cdkDropListConnectedTo]="_fieldList" #_columnList="cdkDropList"
+                  (cdkDropListDropped)="drop($event, 'C')">
+                  <div *ngFor="let c of columnList" class="pivot-area-field" cdkDrag>
+                    <mat-checkbox #checkbox="matCheckbox"
+                    [checked]="c.selected"
+                      (change)="changeFieldEvent($event, checkbox, c, 'C')" >{{c.deno}}</mat-checkbox>
+                  </div>
+              </div>         
+
+            </div>
+
+            <div class="pivot-config-valores">
+              <div class="pivot-area-title"><strong>Valores</strong></div> 
+
+              <div 
+                  cdkDropList [cdkDropListData]="valuesList" class="pivot-field-list" 
+                  #_valuesList="cdkDropList"
+                  (cdkDropListDropped)="drop($event, 'V')">
+                  <div *ngFor="let v of valuesList" class="pivot-area-field" cdkDrag>
+                    <mat-checkbox #checkbox="matCheckbox"
+                      [checked]="v.selected" 
+                      (change)="changeFieldEvent($event, checkbox, v, 'V')" >{{v.deno}}</mat-checkbox>
+                  </div>
+              </div>         
+
+            </div>
+
+        </div>
+
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions style="display: flex; flex-direction: row; justify-content: space-around;">
+
+  <button mat-button (click)="onApply()" [disabled]="!isValid" 
+    >Aplicar</button>
+  <button mat-button mat-dialog-close >Cancelar</button>
+
+  <button mat-button [matMenuTriggerFor]="afterMenu" [disabled]="!isSeleccionRapida">
+      <mat-icon>more_vert</mat-icon>Selección Rapida
+  </button>
+
+  <mat-menu #afterMenu="matMenu" yPosition="above" xPosition="after" >
+    <button mat-menu-item *ngFor="let qs of quickSelection" (click)="onQuickSelection($event, qs.selecionId)">
+          {{ qs.menuName }}
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item (click)="onQuickSelection($event, '__reset__')">
+        Limpiar
+    </button>    
+  </mat-menu>
+
+</mat-dialog-actions>
+

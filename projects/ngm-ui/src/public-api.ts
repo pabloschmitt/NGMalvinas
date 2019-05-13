@@ -3,7 +3,6 @@
  */
 
 export * from './lib/ngm-ui.service';
-export * from './lib/ngm-ui.component';
 export * from './lib/ngm-ui.module';
 
 /**

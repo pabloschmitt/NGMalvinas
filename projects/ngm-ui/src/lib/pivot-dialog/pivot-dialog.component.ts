@@ -1,11 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Component, OnInit, Inject /*,CUSTOM_ELEMENTS_SCHEMA*/ } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem } from '@angular/cdk/drag-drop';
 import { PIVOT_FIELD, PIVOT_AXIS } from '../interfaces/pivot-field';
 import { INPUT_PIVOT_TABLE_COLUMN } from '../interfaces/input-pivot-table-column';
 import { PIVOT_QUICK_SELECTION } from '../interfaces/pivot-quick-selection';
 import { PIVOT_CONFIG } from '../interfaces/pivot-config';
 import { PIVOT_FIELD_ID } from '../interfaces/pivot-field-id';
+import { MatDialogRef , MAT_DIALOG_DATA, MatCheckbox, MatButton } from '@angular/material';
+import { PIVOT_RESPONSE_FIELD } from '../interfaces/pivot-response-field';
+import { PIVOT_RESPONSE } from '../interfaces/pivot-response';
 
 export class PIVOT_TABLE_COLUMN {
     columnDef: string; // Name
@@ -21,7 +23,7 @@ export class PIVOT_TABLE_COLUMN {
 @Component({
   selector: 'ngm-ui-pivot-dialog',
   templateUrl: './pivot-dialog.component.html',
-  styleUrls: ['./pivot-dialog.component.css']
+  styleUrls: ['./pivot-dialog.component.scss']
 })
 export class PivotDialogComponent implements OnInit {
 
@@ -224,6 +226,53 @@ export class PivotDialogComponent implements OnInit {
     }
   }  
   
+  /**
+   * 
+   * @param event 
+   * @param chkbox 
+   * @param obj 
+   * @param f 
+   */
+  changeFieldEvent(event: Event, chkbox: MatCheckbox, obj: PIVOT_FIELD, f: string) {
+    var v = ( f === 'F' ? this.fieldList.find( x => x.fld === obj.fld) 
+        : f === 'C' ? this.columnList.find( x => x.fld === obj.fld) 
+        : this.valuesList.find( x => x.fld === obj.fld));
+    v.selected = chkbox.checked;
+
+    this.checkFieldsSelection();
+
+  }
+
+  onApply() : void {
+    let f = new Array<PIVOT_RESPONSE_FIELD>();
+    let c = new Array<PIVOT_RESPONSE_FIELD>();
+    let v = new Array<PIVOT_RESPONSE_FIELD>();
+  
+    var i: number;
+    for ( i = 0; i < this.fieldList.length; i++) {
+      if ( this.fieldList[i].selected === true ) {
+        f.push(  { fld: this.fieldList[i].fld, deno: this.fieldList[i].deno } );
+      }
+    }
+    for ( i = 0; i < this.columnList.length; i++) {
+      if ( this.columnList[i].selected === true ) {
+        c.push(  { fld: this.columnList[i].fld, deno: this.columnList[i].deno } );
+      }
+    }
+    for ( i = 0; i < this.valuesList.length; i++) {
+      if ( this.valuesList[i].selected === true ) {
+        v.push(  { fld: this.valuesList[i].fld, deno: this.valuesList[i].deno } );
+      }
+    }
+
+    let res = <PIVOT_RESPONSE>{
+      fieldList: f,
+      columnList: c,
+      valuesList: v
+    };
+
+    this.dialogRef.close(res);
+  } // Fin de metodo  
   //#endregion
 
 
