@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "ngm-ui": [
+        "dist/ngm-ui"
+      ],
+      "ngm-ui/*": [
+        "dist/ngm-ui/*"
+      ]
+    }
   }
 }
