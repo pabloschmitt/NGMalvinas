@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { PivotDialogComponent } from '@ngm/ui';
+import { PivotDialogComponent, DynamicTableComponent } from '@ngm/ui';
 import { MatToolbarModule, MatIconModule, MatSelectModule, MatButtonModule, MatInputModule, MatSidenavModule, MatListModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatCardModule, MatDialogModule, MatCheckboxModule, MatStepperModule, MatTabsModule, MatGridListModule, MatMenuModule } from '@angular/material';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -15,7 +15,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     PivotDialogComponent,
-
+    DynamicTableComponent,
   ],
   entryComponents: [
     PivotDialogComponent,
@@ -48,6 +48,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatGridListModule,
     MatMenuModule,
     // Material
+    
 
   ],
   providers: [],

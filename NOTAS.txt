@@ -18,3 +18,9 @@ ng g service JsonplaceholderServiceService --project=demo
 
 npm install dist/ngm-ui --save-optional
 npm install --no-optional
+
+>>>>
+ng build --project=ngm-ui 
+npm install dist/ngm-ui --save-optional
+ng build --project=demo
+ng serve --project=demo

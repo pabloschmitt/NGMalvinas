@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { PivotDialogComponent, PIVOT_RESPONSE, PaginatorPageEvent, PIVOT_CONFIG, PIVOT_AXIS } from '@ngm/ui';
+import { PivotDialogComponent, PIVOT_RESPONSE, PaginatorPageEvent, PIVOT_CONFIG, PIVOT_AXIS, ServiceRequestExt } from '@ngm/ui';
 import { MatDialog } from '@angular/material';
 import { JsonplaceholderService } from './jsonplaceholder-service';
 import { PostDto } from './models';
@@ -16,43 +16,43 @@ export class AppComponent implements OnInit {
   @ViewChild('table') pivotDlg: PivotDialogComponent;
 
   private _pivot_response : PIVOT_RESPONSE;
-  public fakeData: PostDto[];
-  
+  public fakeData: PostDto[] = [];
+  public totalRecordsCount: number;
+
   constructor( public dialog: MatDialog, private dataService: JsonplaceholderService ) {
 
   }
 
   ngOnInit(): void {
 
-    /*
-    this.pivotTbl.setColumns( [
-      {n:'userId', h:'userId'},
-      {n:'id', h:'id'},
-      {n:'title', h:'title'},
-      {n:'body', h:'body'},
-    ] );
-  */
+    var req = <ServiceRequestExt> { skipCount: 0, firtsCount: 20 };
 
-    this.dataService.get_posts(0,20).subscribe( (res) => {
+    this.dataService.get_posts( req ).subscribe( (res) => {
       //this.pivottbl.resetModel = true;
-      //this.recordsCount = 100;  // FIX: Esto debe ser devuelto de la API
-      this.fakeData = res.data.slice(0,20);
-      //console.log(this.fakeData);
+      this.totalRecordsCount = res.metaCount;
+      this.fakeData = res.data.slice(0,5);
       console.log(res);
     });
 
-    console.log("-------------------");
+  }
+
+  rowLick(event) {
+    console.log("rowLick en Parent");
   }
 
   //#region DINAMIC-TABLE - RELACIONADOS ----------------------------------------------
   
   updatePagination(event: PaginatorPageEvent) {
     if ( event.isLoadMoreData ) {
+      console.log(JSON.stringify(event));
       console.log( `SKIP ${event.skipCount} AND GET NEXT ${event.firtsCount} RECORDS...` );
-      this.dataService.get_posts( event.skipCount, event.firtsCount ).subscribe( (res) => {
+      this.dataService.get_posts(  
+        <ServiceRequestExt> { 
+          skipCount: event.skipCount, firtsCount: event.firtsCount
+        } ).subscribe( (res) => {
         console.log(res);
         //this.recordsCount = 100;  // FIX: Esto debe ser devuelto de la API
-        var tempData = this.fakeData.slice(0,this.fakeData.length);
+        var tempData = []; //this.fakeData.slice(0,this.fakeData.length);
         //this.fakeData = res;
         res.data.slice(event.skipCount, event.skipCount+event.firtsCount).forEach( (d: any) => {
           tempData.push(d);

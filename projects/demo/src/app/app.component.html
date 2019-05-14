@@ -4,3 +4,10 @@
 
 <button mat-button (click)="showPivotDialog()">Pivot Dialog</button>
 
+<ngm-dynamic-table #table
+  [defaultColumns]="[{n:'userId', h:'userId'}, {n:'id', h:'id'}, {n:'title', h:'title'}, {n:'body', h:'body'}]"
+  [(dataOrigin)]="fakeData"
+  [(metaCount)]="totalRecordsCount" 
+  (pageEvent)="updatePagination($event)"
+  (clickedItem) = "rowLick($event)"
+></ngm-dynamic-table>

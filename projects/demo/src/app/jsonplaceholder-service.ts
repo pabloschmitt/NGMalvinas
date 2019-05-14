@@ -3,6 +3,8 @@ import { PostDto } from './models';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, take } from 'rxjs/operators';
+import { ServiceResponseExt } from '@ngm/ui';
+import { ServiceRequestExt } from '../../../ngm-ui/src/lib/interfaces/Service-RequestExt';
 
 @Injectable({
   providedIn: 'root'
@@ -20,33 +22,16 @@ export class JsonplaceholderService {
 
   constructor(private httpClient : HttpClient) { }
 
-  get_posts( skipItems?: number, firstItems?: number ) : Observable<ServiceResponseExt> {
-
-    if ( !!skipItems ) { console.log("    get_posts.skipItems = " + skipItems); }
-    if ( !!firstItems ) { console.log("    get_posts.firstItems = " + firstItems); }
-
+  get_posts( req: ServiceRequestExt ) : Observable<ServiceResponseExt> {
     return this.httpClient.get<any>(this.baseUrl + '/',this.httpOptions).pipe(
       map((result: any) => {
-          return <ServiceResponseExt>{ data: result, flag: 1 };
+          return <ServiceResponseExt>{ 
+            data: result, metaCount: 100 
+          };
       })
    );
 
   }
-
-  /*
-  get_posts( skipItems?: number, firstItems?: number ) : Observable<PostDto[]> {
-
-    if ( !!skipItems ) { console.log("    get_posts.skipItems = " + skipItems); }
-    if ( !!firstItems ) { console.log("    get_posts.firstItems = " + firstItems); }
-
-    return this.httpClient.get<PostDto[]>(this.baseUrl + '/',this.httpOptions).pipe(
-      map((result: any) => {
-          return result;
-      })
-   );
-
-  }
-  */
 
 }
 

@@ -10,7 +10,7 @@
     "e2e": "ng e2e",
     "clean": "rimraf dist",
     "watch-lib:ngm-ui": "ng build --project=ngm-ui --watch",
-    "serve:app": "wait-on dist/ngm-ui/public_api.d.ts && ng serve",
+    "serve:app": "wait-on dist/ngm-ui/public_api.d.ts && ng serve --project=demo",
     "watch-all": "npm run clean && run-p watch-lib:* serve:app"
   },
   "private": true,

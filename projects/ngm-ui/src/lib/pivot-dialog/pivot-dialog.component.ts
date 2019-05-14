@@ -9,17 +9,6 @@ import { MatDialogRef , MAT_DIALOG_DATA, MatCheckbox, MatButton } from '@angular
 import { PIVOT_RESPONSE_FIELD } from '../interfaces/pivot-response-field';
 import { PIVOT_RESPONSE } from '../interfaces/pivot-response';
 
-export class PIVOT_TABLE_COLUMN {
-    columnDef: string; // Name
-    cssClass: string; // Css Class
-    columnHeader: string; // Header text, is not defined use n as header
-    constructor( i: INPUT_PIVOT_TABLE_COLUMN ) {
-      this.columnDef = i.n;
-      this.cssClass = !!i.c ? i.c : "" ;
-      this.columnHeader = !!i.h ? i.h : i.n;
-    }
-}
-
 @Component({
   selector: 'ngm-ui-pivot-dialog',
   templateUrl: './pivot-dialog.component.html',
@@ -157,7 +146,7 @@ export class PivotDialogComponent implements OnInit {
 
   }
 
-  /**
+  /** FIX
    * 
    * @param itemsId : List of Id of pivot field to search on source and move to target if founded
    * @param source : list of pivot fields to seach
@@ -195,12 +184,11 @@ export class PivotDialogComponent implements OnInit {
   }  
   
 
-  /**
+  /** FIX
    * Tranfer any item from previus and new container if element contraint check is passed, otherwise not transfer item
    * @param event : event containing source and target list
    * @param targetIdentity : origin source indicating the contraint
    */
-  
   drop(event: CdkDragDrop<PIVOT_FIELD[]>, targetIdentity: string) {
     if (event.previousContainer !== event.container) {
 
@@ -234,6 +222,7 @@ export class PivotDialogComponent implements OnInit {
    * @param f 
    */
   changeFieldEvent(event: Event, chkbox: MatCheckbox, obj: PIVOT_FIELD, f: string) {
+
     var v = ( f === 'F' ? this.fieldList.find( x => x.fld === obj.fld) 
         : f === 'C' ? this.columnList.find( x => x.fld === obj.fld) 
         : this.valuesList.find( x => x.fld === obj.fld));
@@ -243,6 +232,7 @@ export class PivotDialogComponent implements OnInit {
 
   }
 
+  //FIX
   onApply() : void {
     let f = new Array<PIVOT_RESPONSE_FIELD>();
     let c = new Array<PIVOT_RESPONSE_FIELD>();

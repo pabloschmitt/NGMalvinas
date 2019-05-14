@@ -1,4 +1,4 @@
 export interface ServiceResponseExt {
-    data?: any;
+    data: any;
     metaCount: number;
   }
