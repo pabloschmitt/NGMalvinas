@@ -5,11 +5,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, take } from 'rxjs/operators';
 import { ServiceResponseExt } from '@ngm/ui';
 import { ServiceRequestExt } from '../../../ngm-ui/src/lib/interfaces/Service-RequestExt';
+import { INgmService } from '../../../ngm-ui/src/lib/interfaces/i-ngm-service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class JsonplaceholderService {
+export class JsonplaceholderService implements INgmService<PostDto> {
 
   baseUrl:string = "https://jsonplaceholder.typicode.com/posts";
 
@@ -22,17 +23,26 @@ export class JsonplaceholderService {
 
   constructor(private httpClient : HttpClient) { }
 
-  get_posts( req: ServiceRequestExt ) : Observable<ServiceResponseExt> {
-    return this.httpClient.get<any>(this.baseUrl + '/',this.httpOptions).pipe(
-      map((result: any) => {
-          return <ServiceResponseExt>{ 
-            data: result, metaCount: 100 
-          };
-      })
-   );
-
+  get( pageIndex: number, pageSize: number ) 
+  {
+      return this.httpClient.get<PostDto>(this.baseUrl + '/',this.httpOptions).pipe(
+          map((result: PostDto) => {
+              return result;
+              })
+      );
   }
 
+
+  count( ) 
+  {
+      return this.httpClient.get<number>(this.baseUrl + '/',this.httpOptions).pipe(
+          map((result: any) => {
+              return (result as []).length;
+              })
+      );
+  }   
+
+  
 }
 
 

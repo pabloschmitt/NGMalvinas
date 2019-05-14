@@ -1,7 +1,6 @@
 import { Component, OnInit, Inject /*,CUSTOM_ELEMENTS_SCHEMA*/ } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem, copyArrayItem } from '@angular/cdk/drag-drop';
 import { PIVOT_FIELD, PIVOT_AXIS } from '../interfaces/pivot-field';
-import { INPUT_PIVOT_TABLE_COLUMN } from '../interfaces/input-pivot-table-column';
 import { PIVOT_QUICK_SELECTION } from '../interfaces/pivot-quick-selection';
 import { PIVOT_CONFIG } from '../interfaces/pivot-config';
 import { PIVOT_FIELD_ID } from '../interfaces/pivot-field-id';
