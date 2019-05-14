@@ -21,5 +21,10 @@ export * from './lib/interfaces/pivot-response-field';
  * interfaces for dinamic table
  */
 export * from './lib/interfaces/paginator-page-event';
+export * from './lib/interfaces/Service-RequestExt';
+export * from './lib/interfaces/Service-ResponseExt';
 
+/** Export the controls / compoenents / services */
+export * from './lib/dynamic-table/dynamic-table.component';
+export * from './lib/pivot-dialog/pivot-dialog.component';
 

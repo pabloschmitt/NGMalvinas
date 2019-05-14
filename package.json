@@ -8,12 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-
     "clean": "rimraf dist",
     "watch-lib:ngm-ui": "ng build --project=ngm-ui --watch",
     "serve:app": "wait-on dist/ngm-ui/public_api.d.ts && ng serve",
     "watch-all": "npm run clean && run-p watch-lib:* serve:app"
-
   },
   "private": true,
   "dependencies": {
@@ -57,5 +55,8 @@
     "tslib": "^1.9.0",
     "tslint": "~5.11.0",
     "typescript": "~3.2.2"
+  },
+  "optionalDependencies": {
+    "@ngm/ui": "file:dist/ngm-ui"
   }
 }

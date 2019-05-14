@@ -1,0 +1,20 @@
+//ESTE ES EL DE MULTIPLE --WATCH
+https://medium.com/@ntkolev/angular-6-build-watch-multiple-dependent-libraries-in-one-shell-562a5131788c
+
+C:\Users\pablito\source\repos\ng-malvinas
+PS > ng g service --project=demo FakeBackendService
+esto genera en project/demo/src/app/
+
+https://medium.com/atom-platform/angular-7-series-part-2-create-custom-library-8d7a0494b2cc
+https://medium.com/atom-platform/angular-7-series-part-2-create-custom-library-8d7a0494b2cc
+// npm run watch-all
+npm run watch-all
+
+ng g component pivot-dialog --project=ngm-ui
+ng g component dynamic-table --project=ngm-ui
+ng g interface interfaces --project=ngm-ui
+
+ng g service JsonplaceholderServiceService --project=demo
+
+npm install dist/ngm-ui --save-optional
+npm install --no-optional
