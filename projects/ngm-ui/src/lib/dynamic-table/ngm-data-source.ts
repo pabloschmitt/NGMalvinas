@@ -6,7 +6,9 @@ import {Sort} from '@angular/material';
 import { INgmDataSource } from '../interfaces/i-ngm-data-source';
 import { INgmService } from '../interfaces/i-ngm-service';
 
-
+/**
+ * DOCUMENTAR
+ */
 export class NgmDataSource<T_DS> implements INgmDataSource<T_DS> {
 
     private dataSubject = new BehaviorSubject<T_DS[]>([]);

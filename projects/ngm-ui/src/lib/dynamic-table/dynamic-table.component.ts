@@ -7,12 +7,11 @@ import {debounceTime, distinctUntilChanged, startWith, tap, delay} from 'rxjs/op
 
 import { INPUT_DYNAMIC_TABLE_COLUMN } from '../interfaces/input-dynamic-table-column';
 import { PIVOT_TABLE_COLUMN } from '../interfaces/pivot-table-column';
-import { ExampleService } from './example-service';
-import { DataSource } from '@angular/cdk/table';
 import { NgmDataSource } from './ngm-data-source';
 import { INgmDataSource } from '../interfaces/i-ngm-data-source';
 import { INgmService } from '../interfaces/i-ngm-service';
 
+// DOCUMENTAR
 @Component({
   selector: 'ngm-dynamic-table',
   templateUrl: './dynamic-table.component.html',
@@ -28,7 +27,7 @@ export class DynamicTableComponent implements OnInit, OnDestroy, OnChanges, Afte
   @ViewChild(MatSort) sort: MatSort;
   @Input() refService: INgmService<any>;
   
-  dataSource: NgmDataSource<any>;
+  dataSource: INgmDataSource<any>;
 
   constructor( ) { }
 
