@@ -11,7 +11,7 @@ import { PIVOT_RESPONSE } from '../interfaces/pivot-response';
 @Component({
   selector: 'ngm-ui-pivot-dialog',
   templateUrl: './pivot-dialog.component.html',
-  styleUrls: ['./pivot-dialog.component.scss']
+  styleUrls: ['./pivot-dialog.component.css']
 })
 export class PivotDialogComponent implements OnInit {
 
