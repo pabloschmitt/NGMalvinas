@@ -25,6 +25,8 @@ export class JsonplaceholderService implements INgmService<PostDto> {
 
   get( pageIndex: number, pageSize: number ) 
   {
+      console.log("in svc : pageIndex = " + pageIndex + " , pageSize = " + pageSize);
+      
       return this.httpClient.get<PostDto>(this.baseUrl + '/',this.httpOptions).pipe(
           map((result: PostDto) => {
               return result;
@@ -37,6 +39,7 @@ export class JsonplaceholderService implements INgmService<PostDto> {
   {
       return this.httpClient.get<number>(this.baseUrl + '/',this.httpOptions).pipe(
           map((result: any) => {
+              console.log("count in svc = " + (result as []).length);
               return (result as []).length;
               })
       );

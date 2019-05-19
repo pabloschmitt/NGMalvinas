@@ -37,19 +37,20 @@ export class NgmDataSource<T_DS> implements INgmDataSource<T_DS> {
             finalize(() => {
                 this.loadingSubject.next(false);
             })).subscribe(res => {
-                console.log( "NgmDataSource -> SVC-> SKIP " + (pageSize * pageIndex) + " AND GET " +(pageSize * pageIndex)+pageSize );
+                console.log( "NgmDataSource -> SVC-> SKIP " + (pageSize * pageIndex) + " AND GET " + ((pageSize * pageIndex)+pageSize) );
                 this.dataSubject.next(
-                    (res as []).slice( (pageSize * pageIndex), (pageSize * pageIndex)+pageSize )
+                    (res as []).slice( (pageSize * pageIndex), ((pageSize * pageIndex)+pageSize) )
                     );
             });
     }
 
     countData( )  {
-        console.log( "NgmDataSource -> SVC-> COUNT");
+        
         this.svc.count().pipe( 
             catchError( e => [] ),
             finalize(() => {
             })).subscribe((res: number) => {
+                console.log( "NgmDataSource -> SVC-> COUNT " + res );
                 this.countSubject.next( res );
             });
     }

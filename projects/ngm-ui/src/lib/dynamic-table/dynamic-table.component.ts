@@ -36,8 +36,10 @@ export class DynamicTableComponent implements OnInit, OnDestroy, OnChanges, Afte
    
     this.setColumns( this.defaultColumns );
 
+    //this.loadData();
+    
     this.dataSource.countData();
-    this.dataSource.loadData(0,5);
+    this.dataSource.loadData(this.paginator.pageIndex, !!this.paginator.pageSize ? 0 : this.paginator.pageSize);
   }
 
   ngOnDestroy(): void {
@@ -61,7 +63,7 @@ export class DynamicTableComponent implements OnInit, OnDestroy, OnChanges, Afte
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Refresh data source 
+
   }
   
 

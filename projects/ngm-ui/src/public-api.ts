@@ -34,4 +34,6 @@ export * from './lib/dynamic-table/ngm-data-source';
 /** Export the controls / compoenents / services */
 export * from './lib/dynamic-table/dynamic-table.component';
 export * from './lib/pivot-dialog/pivot-dialog.component';
+export * from './lib/dynamic-table/fn-mat-paginator-ext';
+
 
