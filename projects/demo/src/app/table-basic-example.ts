@@ -1,5 +1,5 @@
 import { Component, ViewChild, AfterViewInit, OnInit, Input, LOCALE_ID, Inject } from '@angular/core';
-import {MatTableDataSource, MatSort, MatPaginator} from '@angular/material';
+import {MatTableDataSource, MatSort, MatPaginator, MatCheckboxClickAction} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
 import { Time } from '@angular/common';
 
@@ -21,9 +21,9 @@ export enum Ngm_DynCType {
   Date = "DATE",
   Time = "TIME",
   DateTime = "DATTIME",
-  Buttom = "BTN",
+  //Buttom = "BTN",
   Boolean = "BOOL",
-  Menu = "MENU",
+  //Menu = "MENU",
   TableSelect = "TSEL",
   EndTableColumn = "TEND"
 }
@@ -65,11 +65,12 @@ export class TableBasicExample implements  OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
+  private toggleColumnNumber = -1;
 
   constructor() {
 
     sampleDataList = [];
-    for (let index = 0; index < 50; index++) {
+    for (let index = 0; index < 120; index++) {
 
       sampleDataList.push( <sampleDto> {
         IdCustomer: index,
@@ -124,6 +125,7 @@ export class TableBasicExample implements  OnInit, AfterViewInit {
     // Genera Columnas para prueba
     this.defColumns.push( Ngm_MakeDynTColumn( "IdCustomer", "ID.", Ngm_DynCType.Numeric_Short ) );
     this.defColumns.push( Ngm_MakeDynTColumn( "Name", "Nombre", Ngm_DynCType.General ) );
+
     this.defColumns.push( Ngm_MakeDynTColumn( "Email", "Correo", Ngm_DynCType.General ) );
     this.defColumns.push( Ngm_MakeDynTColumn( "Puntos", "Puntos", Ngm_DynCType.Numeric_Medium ) );
     this.defColumns.push( Ngm_MakeDynTColumn( "Valores", "Valores", Ngm_DynCType.Decimal ) );
@@ -133,7 +135,7 @@ export class TableBasicExample implements  OnInit, AfterViewInit {
     this.defColumns.push( Ngm_MakeDynTColumn( "UnaFechaHora", "UnaFechaHora", Ngm_DynCType.DateTime ) );
     this.defColumns.push( Ngm_MakeDynTColumn( "Activo", "Activo", Ngm_DynCType.Boolean ) );
     //
-    this.defColumns.push( Ngm_MakeDynTColumn( "Boton1", "Click aca", Ngm_DynCType.Buttom ) );
+    //this.defColumns.push( Ngm_MakeDynTColumn( "Boton1", "Click aca", Ngm_DynCType.Buttom ) );
     //
     this.defColumns.push( Ngm_MakeDynTColumn( "Adress1", "Adress1", Ngm_DynCType.LongText ) );
     this.defColumns.push( Ngm_MakeDynTColumn( "Adress2", "Adress2", Ngm_DynCType.General ) );
@@ -181,6 +183,37 @@ export class TableBasicExample implements  OnInit, AfterViewInit {
     this.custSource.filter = filterValue.trim().toLowerCase();
   }
 
+  onRowClick(event: any, rowIndex: number, columnIndex: number, row: any) {
+    console.log("EVENT = " + JSON.stringify(event));
+    console.log("row = " + JSON.stringify(row));
+    console.log("rowIndex = " + rowIndex + " / columnIndex = " + columnIndex);
+
+    //#region  start logic of CheckBoxSelection
+    if ( columnIndex === this.toggleColumnNumber )
+    {
+      if ( rowIndex === -1 ) {
+        // Click on header
+        if ( this.selectedItems.hasValue() && !this.isAllSelected()) {
+          // No esta Todo seleccionado, pero hay algo, se deselecciona
+          this.selectedItems.clear();
+        } else {
+          this.isAllSelected() ? this.selectedItems.clear() :this.custSource.data.forEach(row => this.selectedItems.select(row));
+        }
+      } else {
+        // click on row
+        this.selectedItems.toggle(row);
+      }
+      return null;
+    } 
+    //#endregion
+
+    //#region start Login of ROW-CLICK event
+    
+    //#endregion
+
+  }
+  
+  
 }
 
 export class sampleDto {

@@ -3,6 +3,10 @@ table {
   width: 100%;
 }
 
+.mat-table-virtual-wrapper {
+  display: block;
+}
+
 tr.mat-footer-row {
   font-weight: bold;
 }
@@ -10,9 +14,16 @@ tr.mat-footer-row {
 .divforsticky {
   width: 100%;
   overflow: auto;
+  /*
   min-width: 100%;
+  min-width: 400px;
   min-height: 200px;    
-  max-height: calc( 100vh - 60px); /* 60px  que en realidad son 56 es el Alto del MatPaginator*/
+  height: 100%;
+  */
+  //max-height: calc( 100vh - 60px); /* 60px  que en realidad son 56 es el Alto del MatPaginator*/
+  height: 100%;
+  display: flex;
+  //flex-flow: column;
 }
 
 td.mat-column-star {
@@ -48,7 +59,7 @@ td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
   min-width: 4px !important;
   max-width: 4px !important;
   width: 4px !important;
-  background-color: blueviolet;
+  background-color:  #e0e0e0; // blueviolet;
   padding-right: 0px !important;
   padding-left: 0px !important;
 }
@@ -59,6 +70,8 @@ td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
   min-width: 100%;
   min-height: 200px;    
   max-height: calc( 100vh - 60px);
+  //max-height: calc( 100% - 60px);
+  //flex-grow: 1;
 }
 
 .mat-paginator-sticky {
@@ -68,6 +81,8 @@ td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
   z-index: 10;
   max-height: 56px !important;
 }
+
+
 
 // LONGT Style
 .mgm-table-longt {
@@ -105,6 +120,22 @@ td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
   min-width: 50px !important;  
   text-align: center !important;
 }
-.ngm-table-btn {
-  //min-width: 50px !important;    
+
+/*
+.mgm-spinner-container {
+  background: rgba(41, 177, 210, 0.9);
+  color: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 0.4;
+  z-index: 255;
+  width: 100%;
+  overflow: hidden;
+  //min-width: 100%;
+  //min-width: 400px;
+  min-height: 200px;    
+  height: 100%;
 }
+
+*/
