@@ -4,9 +4,7 @@
 
 <!-- https://stackblitz.com/edit/materialtable?file=src%2Fapp%2Fapp.component.html -->
 
-<table mat-table [dataSource]="custSource" matSort  class="mat-table-virtual-wrapper"
->
-
+<table mat-table [dataSource]="dataSource" matSort  class="mat-table-virtual-wrapper">
     
     <!-- defColumns_Sticky -->
     <ng-container *ngFor="let col of defColumns_Sticky; let columnIndex = index" 

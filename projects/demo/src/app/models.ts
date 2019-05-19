@@ -1,6 +1,7 @@
-export interface PostDto {
+export interface TodoDto {
     userId: number;
     id: number;
     title: string;
-    body: string;
+    completed: boolean;
   }
+

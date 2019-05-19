@@ -1,7 +1,6 @@
 import { Component, ViewChild, AfterViewInit, OnInit, Input, LOCALE_ID, Inject } from '@angular/core';
 import {MatTableDataSource, MatSort, MatPaginator, MatCheckboxClickAction} from '@angular/material';
 import {SelectionModel} from '@angular/cdk/collections';
-import { Time } from '@angular/common';
 
 //https://stackblitz.com/edit/angular-material-data-table-infinite-scroll?file=src%2Fapp%2Fapp.component.html
 
@@ -9,6 +8,8 @@ import { Time } from '@angular/common';
 
 //https://stackblitz.com/edit/mat-table-resize
 //https://github.com/angular/components/issues/8312
+
+// http://jsfiddle.net/36u4bxL1/  FLEX
 
 export enum Ngm_DynCType {
   General = "GEN",
@@ -52,7 +53,7 @@ export var sampleDataList:sampleDto[] = [];
 })
 export class TableBasicExample implements  OnInit, AfterViewInit {
   name = 'Angular Material All Future in one Component ';
-  public custSource: any = new MatTableDataSource<sampleDto>(sampleDataList) ;
+  public dataSource: any = new MatTableDataSource<sampleDto>(sampleDataList) ;
 
   public displayedColumns: string[] = []; 
 
@@ -96,21 +97,22 @@ export class TableBasicExample implements  OnInit, AfterViewInit {
       });
       
     }
-    this.custSource = new MatTableDataSource<sampleDto>(sampleDataList) ;
+    this.dataSource = new MatTableDataSource<sampleDto>(sampleDataList) ;
 
     this.setColumns();
   }
 
 
    ngOnInit() {
-    this.custSource.sort = this.sort;
-    this.custSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
   }
 
   ngAfterViewInit() { 
   }
 
 
+  
   setColumns() : void {
     
     this.defColumns_Sticky = [];
@@ -154,19 +156,12 @@ export class TableBasicExample implements  OnInit, AfterViewInit {
     // End Column
     this.defColumns_StickyEnd.push( Ngm_MakeDynTColumn( "_end", "", Ngm_DynCType.EndTableColumn ) );
     this.displayedColumns.push( "_end" );
-    /*
-    console.log( JSON.stringify( this.defColumns_Sticky ) );
-    console.log( JSON.stringify( this.defColumns_StickyEnd ) );
-    console.log( JSON.stringify( this.defColumns ) );
-    console.log( JSON.stringify( this.displayedColumns ) );
 
-    console.log("end of definition ---------------------------");
-    */
   }
 
   isAllSelected(): boolean {
     const numSelected = this.selectedItems.selected.length;
-    const numRows = this.custSource.data.length;
+    const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
@@ -175,12 +170,12 @@ export class TableBasicExample implements  OnInit, AfterViewInit {
   }
   
   SelectAll() {
-    this.isAllSelected() ? this.selectedItems.clear() :this.custSource.data.forEach(row => this.selectedItems.select(row));
+    this.isAllSelected() ? this.selectedItems.clear() :this.dataSource.data.forEach(row => this.selectedItems.select(row));
 
   }
 
   applycustomFilter(filterValue: string) {
-    this.custSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
   onRowClick(event: any, rowIndex: number, columnIndex: number, row: any) {
@@ -197,7 +192,7 @@ export class TableBasicExample implements  OnInit, AfterViewInit {
           // No esta Todo seleccionado, pero hay algo, se deselecciona
           this.selectedItems.clear();
         } else {
-          this.isAllSelected() ? this.selectedItems.clear() :this.custSource.data.forEach(row => this.selectedItems.select(row));
+          this.isAllSelected() ? this.selectedItems.clear() :this.dataSource.data.forEach(row => this.selectedItems.select(row));
         }
       } else {
         // click on row
@@ -208,7 +203,7 @@ export class TableBasicExample implements  OnInit, AfterViewInit {
     //#endregion
 
     //#region start Login of ROW-CLICK event
-    
+
     //#endregion
 
   }
@@ -308,7 +303,7 @@ const ELEMENT_DATA: Element[] = [
 })
 export class TableBasicExample implements  OnInit, AfterViewInit {
   name = 'Angular Material All Future in one Component ';
-  public custSource: any = new MatTableDataSource<customer>(customerData) ;
+  public dataSource: any = new MatTableDataSource<customer>(customerData) ;
   public customerdisplayedColumns: string[] =['select','name','age','email','Dateofjoin'];
   selectedcustomers = new SelectionModel<customer>(true, []);
 
@@ -316,8 +311,8 @@ export class TableBasicExample implements  OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
    ngOnInit() {
     
-    this.custSource.sort = this.sort;
-    this.custSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
     
   }
   ngAfterViewInit() { 
@@ -326,7 +321,7 @@ export class TableBasicExample implements  OnInit, AfterViewInit {
 
   isAllCustSelected(): boolean {
     const numSelected = this.selectedcustomers.selected.length;
-    const numRows = this.custSource.data.length;
+    const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
 
@@ -335,12 +330,12 @@ export class TableBasicExample implements  OnInit, AfterViewInit {
   }
   
   SelectAllCustomers() {
-    this.isAllCustSelected() ? this.selectedcustomers.clear() :this.custSource.data.forEach(row => this.selectedcustomers.select(row));
+    this.isAllCustSelected() ? this.selectedcustomers.clear() :this.dataSource.data.forEach(row => this.selectedcustomers.select(row));
 
   }
 
   applycustomFilter(filterValue: string) {
-    this.custSource.filter = filterValue.trim().toLowerCase();
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
 }

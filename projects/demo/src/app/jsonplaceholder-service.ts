@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PostDto } from './models';
+import { TodoDto } from './models';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, take } from 'rxjs/operators';
@@ -10,9 +10,9 @@ import { INgmService } from '../../../ngm-ui/src/lib/interfaces/i-ngm-service';
 @Injectable({
   providedIn: 'root'
 })
-export class JsonplaceholderService implements INgmService<PostDto> {
+export class JsonplaceholderService implements INgmService<TodoDto> {
 
-  baseUrl:string = "https://jsonplaceholder.typicode.com/posts";
+  baseUrl:string = "https://jsonplaceholder.typicode.com/todos";
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -27,8 +27,8 @@ export class JsonplaceholderService implements INgmService<PostDto> {
   {
       console.log("in svc : pageIndex = " + pageIndex + " , pageSize = " + pageSize);
       
-      return this.httpClient.get<PostDto>(this.baseUrl + '/',this.httpOptions).pipe(
-          map((result: PostDto) => {
+      return this.httpClient.get<TodoDto>(this.baseUrl + '/',this.httpOptions).pipe(
+          map((result: TodoDto) => {
               return result;
               })
       );
